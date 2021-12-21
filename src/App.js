@@ -2,6 +2,7 @@ import React from "react";
 import './style.css';
 import TodoList from './TodoList';
 import TodoItem from "./TodoItem";
+import TodoButton from "./TodoButton";
 import './todoListStyle.css';
 
 class App extends React.Component{
@@ -51,10 +52,22 @@ class App extends React.Component{
   })
    }
 
-   handleShow = (itemState) =>{
-     this.setState({
-       itemToShow: itemState
-     })
+   handleAll = (itemState) => {
+    this.setState({
+      itemToShow: itemState
+    })
+   }
+
+   handleActive = (itemState) => {
+    this.setState({
+      itemToShow: itemState
+    })
+   }
+
+   handleCompleted = (itemState) => {
+    this.setState({
+      itemToShow: itemState
+    })
    }
 
 
@@ -153,19 +166,15 @@ class App extends React.Component{
       })
       }
       </div>
+
       <div className="buttonsDiv">
                 <div className="itemCount">{this.state.items.filter(item => !item.completed).length} item left</div>
                 <ul className="itemStatus">
-                    <li>
-                    <a className="active" href="#/" onClick={() => this.handleShow("all")}>All</a>
-                    </li>
-                    <li>
-                    <a href="#/" onClick={() => this.handleShow("active")}>Active</a>
-                    </li>
-                    <li>
-                    <a href="#/" onClick={() => this.handleShow("completed")}>Completed</a>
-                    </li>
+                    <TodoButton handleShow={()=>this.handleAll("all")} buttonText={"All"} />
+                    <TodoButton handleShow={()=>this.handleActive("active")} buttonText={"Active"} />
+                    <TodoButton handleShow={()=>this.handleCompleted("completed")} buttonText={"Completed"} />
                 </ul>
+                
                 
                 <div className={this.state.items.filter(item => item.completed).length > 0 ? "completedCount":"allActive"}
                 onClick={() => this.clearCompletedItems()}>Clear Completed</div>
